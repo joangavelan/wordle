@@ -8,10 +8,10 @@ type LetterGridRowProps = {
 
 export const LetterGridRow = ({ word, isEvaluated, correctWord }: LetterGridRowProps) => {
   const getLetterBackground = (letter: string, index: number) => {
-    if (!isEvaluated) return 'bg-[#DADDDE]'
-    if (word[index] === correctWord[index]) return 'bg-[#66A060]'
-    if (correctWord.includes(letter)) return 'bg-[#CEB02C]'
-    else return 'bg-[#939B9F]'
+    if (!isEvaluated) return 'bg-gray-200'
+    if (word[index] === correctWord[index]) return 'bg-green-100'
+    if (correctWord.includes(letter)) return 'bg-yellow-100'
+    else return 'bg-gray-400'
   }
 
   const fiveElArray = Array.from({ length: 5 }, (_, i) => i)
