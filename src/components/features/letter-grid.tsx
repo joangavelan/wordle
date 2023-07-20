@@ -3,7 +3,7 @@ import { LetterGridRow } from './letter-grid-row'
 import { useGlobalStore } from '@/store'
 
 export const LetterGrid = () => {
-  const { guessedWords, currentGuessWord, processKey, isGameOver, correctWord } = useGlobalStore()
+  const { guessedWords, currentGuessWord, processKey, correctWord } = useGlobalStore()
 
   React.useEffect(() => {
     const handleType = (event: KeyboardEvent) => {
@@ -15,18 +15,7 @@ export const LetterGrid = () => {
     return () => {
       window.removeEventListener('keydown', handleType)
     }
-  }, [currentGuessWord, correctWord, isGameOver])
-
-  React.useEffect(() => {
-    if (guessedWords.includes(correctWord)) {
-      useGlobalStore.setState((state) => ({ ...state, isGameOver: true }))
-      alert('You won the game!')
-    }
-    if (guessedWords[guessedWords.length - 1] !== null) {
-      useGlobalStore.setState((state) => ({ ...state, isGameOver: true }))
-      alert('Game is over! The correct word was ' + correctWord)
-    }
-  }, [guessedWords])
+  }, [])
 
   return (
     <div className='grid grid-cols-5 gap-4 mt-24'>

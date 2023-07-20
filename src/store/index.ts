@@ -6,18 +6,28 @@ type Store = {
   guessedWords: Array<string | null>
   currentGuessWord: string
   isGameOver: boolean
+  nextWordTimer: number
+  resetGame: () => void
+  finishGame: () => void
   processKey: (key: string) => void
 }
 
-type SessionData = {
-  isNewUser: boolean
-}
-
-export const useGlobalStore = create<Store>((set) => ({
+const initialState = {
   correctWord: 'state',
   guessedWords: Array(5).fill(null),
   currentGuessWord: '',
   isGameOver: false,
+  nextWordTimer: 5 * 60
+}
+
+export const useGlobalStore = create<Store>((set) => ({
+  ...initialState,
+  resetGame: () => {
+    set(initialState)
+  },
+  finishGame: () => {
+    set(() => ({ isGameOver: true }))
+  },
   processKey: (key: string) =>
     set((state) => {
       if (state.isGameOver) return { ...state }
@@ -40,10 +50,27 @@ export const useGlobalStore = create<Store>((set) => ({
     })
 }))
 
+type SessionData = {
+  isNewUser: boolean
+  numberOfPlays: number
+  victories: number
+  increaseNumberOfPlays: () => void
+  increaseVictories: () => void
+}
+
+const initialSessionState = {
+  isNewUser: true,
+  numberOfPlays: 0,
+  victories: 0
+}
+
 export const useSessionData = create(
   persist<SessionData>(
-    () => ({
-      isNewUser: true
+    (set) => ({
+      ...initialSessionState,
+      increaseNumberOfPlays: () =>
+        set((state) => ({ ...state, numberOfPlays: state.numberOfPlays + 1 })),
+      increaseVictories: () => set((state) => ({ ...state, victories: state.victories + 1 }))
     }),
     {
       name: 'wordle-game-session-data'

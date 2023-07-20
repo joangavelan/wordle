@@ -1,6 +1,18 @@
-export const ChartIcon = () => {
+type ChartIconProps = {
+  onClick: () => void
+}
+
+export const ChartIcon = ({ onClick }: ChartIconProps) => {
   return (
-    <svg width='40' height='36' viewBox='0 0 40 36' fill='none' xmlns='http://www.w3.org/2000/svg'>
+    <svg
+      width='40'
+      height='36'
+      viewBox='0 0 40 36'
+      fill='none'
+      xmlns='http://www.w3.org/2000/svg'
+      className='cursor-pointer'
+      onClick={onClick}
+    >
       <g id='Chart_duotone_line'>
         <rect
           id='Rectangle 25'
