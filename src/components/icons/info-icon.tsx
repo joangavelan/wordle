@@ -1,6 +1,18 @@
-export const InfoIcon = () => {
+type InfoIconProps = {
+  onClick: () => void
+}
+
+export const InfoIcon = ({ onClick }: InfoIconProps) => {
   return (
-    <svg width='27' height='27' viewBox='0 0 27 27' fill='none' xmlns='http://www.w3.org/2000/svg'>
+    <svg
+      onClick={onClick}
+      width='27'
+      height='27'
+      viewBox='0 0 27 27'
+      fill='none'
+      xmlns='http://www.w3.org/2000/svg'
+      className='cursor-pointer'
+    >
       <g id='bi:question-circle-fill' clipPath='url(#clip0_7_1572)'>
         <g id='Group'>
           <path

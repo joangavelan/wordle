@@ -1,3 +1,4 @@
+export * from './info'
 export * from './keyboard'
 export * from './letter-grid-row'
 export * from './letter-grid'

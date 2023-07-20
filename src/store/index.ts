@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 type Store = {
   correctWord: string
@@ -6,6 +7,10 @@ type Store = {
   currentGuessWord: string
   isGameOver: boolean
   processKey: (key: string) => void
+}
+
+type SessionData = {
+  isNewUser: boolean
 }
 
 export const useGlobalStore = create<Store>((set) => ({
@@ -34,3 +39,14 @@ export const useGlobalStore = create<Store>((set) => ({
       return { ...state }
     })
 }))
+
+export const useSessionData = create(
+  persist<SessionData>(
+    () => ({
+      isNewUser: true
+    }),
+    {
+      name: 'wordle-game-session-data'
+    }
+  )
+)
