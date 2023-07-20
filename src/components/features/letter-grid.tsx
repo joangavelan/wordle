@@ -1,47 +1,13 @@
 import * as React from 'react'
 import { LetterGridRow } from './letter-grid-row'
+import { useGlobalStore } from '@/store'
 
 export const LetterGrid = () => {
-  const [correctWord, setCorrectWord] = React.useState('state')
-  const [guessedWords, setGuessedWords] = React.useState(Array(5).fill(null))
-  const [currentWord, setCurrentWord] = React.useState('')
-  const [isGameOver, setIsGameOver] = React.useState(false)
-
-  const evaluateCurrentWord = () => {
-    if (currentWord.length === 5) {
-      const newGuessedWords = [...guessedWords]
-      newGuessedWords[guessedWords.findIndex((val) => val == null)] = currentWord
-      setGuessedWords(newGuessedWords)
-      setCurrentWord('')
-    }
-  }
-
-  const removeLetterFromCurrentWord = () => {
-    if (currentWord.length === 0) return
-    setCurrentWord(currentWord.slice(0, -1))
-  }
-
-  const addNewLetterToCurrentWord = (key: string) => {
-    if (currentWord.length >= 5) return
-    setCurrentWord((word) => word + key)
-  }
+  const { guessedWords, currentGuessWord, processKey, isGameOver, correctWord } = useGlobalStore()
 
   React.useEffect(() => {
     const handleType = (event: KeyboardEvent) => {
-      const { key } = event
-
-      if (isGameOver) {
-        return
-      }
-      if (/^[a-zñ]+$/.test(key)) {
-        addNewLetterToCurrentWord(key)
-      }
-      if (key === 'Backspace') {
-        removeLetterFromCurrentWord()
-      }
-      if (key === 'Enter') {
-        evaluateCurrentWord()
-      }
+      processKey(event.key)
     }
 
     window.addEventListener('keydown', handleType)
@@ -49,15 +15,15 @@ export const LetterGrid = () => {
     return () => {
       window.removeEventListener('keydown', handleType)
     }
-  }, [currentWord, correctWord, isGameOver])
+  }, [currentGuessWord, correctWord, isGameOver])
 
   React.useEffect(() => {
     if (guessedWords.includes(correctWord)) {
-      setIsGameOver(true)
+      useGlobalStore.setState((state) => ({ ...state, isGameOver: true }))
       alert('You won the game!')
     }
     if (guessedWords[guessedWords.length - 1] !== null) {
-      setIsGameOver(true)
+      useGlobalStore.setState((state) => ({ ...state, isGameOver: true }))
       alert('Game is over! The correct word was ' + correctWord)
     }
   }, [guessedWords])
@@ -69,9 +35,9 @@ export const LetterGrid = () => {
         return (
           <LetterGridRow
             key={i}
-            word={isCurrentWord ? currentWord : word ?? ''}
+            word={isCurrentWord ? currentGuessWord : word ?? ''}
             correctWord={correctWord}
-            isEvaluated={word}
+            isEvaluated={Boolean(word)}
           />
         )
       })}
