@@ -1,0 +1,17 @@
+<svg width="28" height="30" viewBox="0 0 28 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Switch">
+<ellipse id="Ellipse 1" cx="13.65" cy="14.7778" rx="13.65" ry="14.7778" fill="url(#paint0_linear_1_133)"/>
+<ellipse id="Ellipse 1_2" cx="13.65" cy="14.7778" rx="11.31" ry="12.2444" fill="url(#paint1_linear_1_133)"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_1_133" x1="13.65" y1="0" x2="13.65" y2="29.5556" gradientUnits="userSpaceOnUse">
+<stop stop-color="#D6E9FF"/>
+<stop offset="1" stop-color="#CDE4FF"/>
+</linearGradient>
+<linearGradient id="paint1_linear_1_133" x1="13.65" y1="2.53333" x2="13.65" y2="27.0222" gradientUnits="userSpaceOnUse">
+<stop stop-color="#CEE5FF"/>
+<stop offset="0.9999" stop-color="#EDF6FF"/>
+<stop offset="1" stop-color="#F1F9FF"/>
+</linearGradient>
+</defs>
+</svg>

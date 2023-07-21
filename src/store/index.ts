@@ -57,6 +57,8 @@ type SessionData = {
   numberOfPlays: number
   victories: number
   wordsPlayed: string[]
+  prefersDark: boolean
+  toggleDarkMode: () => void
   addWordPlayed: (word: string) => void
   increaseNumberOfPlays: () => void
   increaseVictories: () => void
@@ -66,13 +68,19 @@ const initialSessionState = {
   isNewUser: true,
   wordsPlayed: [],
   numberOfPlays: 0,
-  victories: 0
+  victories: 0,
+  prefersDark: false
 }
 
 export const useSessionData = create(
   persist<SessionData>(
     (set) => ({
       ...initialSessionState,
+      toggleDarkMode: () =>
+        set((state) => {
+          document.documentElement.classList.toggle('dark')
+          return { prefersDark: !state.prefersDark }
+        }),
       addWordPlayed: (word) => set((state) => ({ wordsPlayed: [...state.wordsPlayed, word] })),
       increaseNumberOfPlays: () =>
         set((state) => ({ ...state, numberOfPlays: state.numberOfPlays + 1 })),
