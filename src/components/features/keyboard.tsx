@@ -1,5 +1,6 @@
 import { useGlobalStore } from '@/store'
 import { keyboardLayout } from '@/utils'
+import { BackspaceIcon } from '../icons'
 
 export const Keyboard = () => {
   const { processKey } = useGlobalStore()
@@ -15,10 +16,10 @@ export const Keyboard = () => {
           {row.map((key, i) => (
             <button
               key={i}
-              className='bg-gray-200 dark:bg-navy-100 dark:text-white p-4 min-w-[44px] rounded-[5px]'
+              className='bg-gray-200 dark:bg-navy-100 text-gray-600 dark:text-white p-4 min-w-[44px] rounded-[5px]'
               onClick={() => handleOnKeyClick(key)}
             >
-              {key.toUpperCase()}
+              {key === 'Backspace' ? <BackspaceIcon /> : key.toUpperCase()}
             </button>
           ))}
         </div>
