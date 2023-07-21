@@ -9,8 +9,8 @@ export const Letter = ({ background, letter }: LetterProps) => {
   return (
     <div
       className={cn(
-        background,
-        'rounded-[5px] text-[35px] uppercase grid place-items-center w-[76px] h-[76px] font-bold border border-black text-black'
+        'rounded-[5px] text-[35px] uppercase grid place-items-center w-[76px] h-[76px] font-bold border border-black dark:border-gray-400 text-black dark:text-white',
+        background
       )}
     >
       {letter}

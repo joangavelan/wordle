@@ -1,8 +1,12 @@
+import { useSessionData } from '@/store'
+
 type ChartIconProps = {
   onClick: () => void
 }
 
 export const ChartIcon = ({ onClick }: ChartIconProps) => {
+  const { prefersDark } = useSessionData()
+
   return (
     <svg
       width='40'
@@ -21,13 +25,12 @@ export const ChartIcon = ({ onClick }: ChartIconProps) => {
           width='29.6129'
           height='24'
           rx='2'
-          fill='black'
-          fillOpacity='0.49'
+          fill={prefersDark ? '#FFFFFF' : '#7C7C7C'}
         />
         <path
           id='Vector 8'
           d='M13.1613 15L13.1613 24'
-          stroke='white'
+          stroke={prefersDark ? '#273B4A' : '#FFFFFF'}
           strokeWidth='1.2'
           strokeLinecap='round'
           strokeLinejoin='round'
@@ -35,7 +38,7 @@ export const ChartIcon = ({ onClick }: ChartIconProps) => {
         <path
           id='Vector 9'
           d='M19.7419 18V24'
-          stroke='white'
+          stroke={prefersDark ? '#273B4A' : '#FFFFFF'}
           strokeWidth='1.2'
           strokeLinecap='round'
           strokeLinejoin='round'
@@ -43,7 +46,7 @@ export const ChartIcon = ({ onClick }: ChartIconProps) => {
         <path
           id='Vector 10'
           d='M26.3226 12V24'
-          stroke='white'
+          stroke={prefersDark ? '#273B4A' : '#FFFFFF'}
           strokeWidth='1.2'
           strokeLinecap='round'
           strokeLinejoin='round'

@@ -20,7 +20,7 @@ export const WordExample = ({ word, explanation }: WordExampleProps) => {
                 ? 'bg-yellow-100'
                 : word == 'canto' && l === 'o'
                 ? 'bg-gray-500'
-                : 'bg-white'
+                : 'bg-white dark:bg-navy-200'
             }
           />
         ))}

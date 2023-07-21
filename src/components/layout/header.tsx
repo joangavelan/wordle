@@ -36,9 +36,11 @@ export const Header = () => {
   }, [isGameOver])
 
   return (
-    <header className='bg-gray-100 w-full flex justify-between items-center gap-2 py-4 px-6 rounded-[15px]'>
+    <header className='bg-gray-100 dark:bg-[#DADCE008] w-full flex justify-between items-center gap-2 py-4 px-6 rounded-[15px]'>
       <InfoIcon onClick={() => openModal('info')} />
-      <h1 className='uppercase text-[40px] tracking-widest font-semibold text-navy-300'>Wordle</h1>
+      <h1 className='uppercase text-[40px] tracking-widest font-semibold text-navy-300 dark:text-gray-200'>
+        Wordle
+      </h1>
       <div className='flex gap-2.5 items-center'>
         <ChartIcon onClick={() => openModal('stats')} />
         <ThemeSwitch />
@@ -46,7 +48,7 @@ export const Header = () => {
 
       <dialog
         ref={modalRef}
-        className='p-10 border-black border rounded-[15px] bg-gray-100 outline-none max-w-lg w-full'
+        className='p-10 border-black dark:border-gray-400 border rounded-[15px] bg-gray-100 dark:bg-navy-200 dark:text-white outline-none max-w-lg w-full'
       >
         <button autoFocus className='opacity-0'></button>
 
