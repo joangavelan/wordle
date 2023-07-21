@@ -1,4 +1,4 @@
-import { Header } from '@/components/layout/header'
+import { AppContainer, Header } from '@/components/layout'
 import { Keyboard, LetterGrid } from './components/features'
 import * as React from 'react'
 import { useGlobalStore, useSessionData } from './store'
@@ -46,12 +46,10 @@ export default function App() {
   }, [guessedWords, nextWordTimer])
 
   return (
-    <div className='flex justify-center h-screen'>
-      <div className='flex flex-col items-center max-w-3xl w-full h-full pt-8'>
-        <Header />
-        <LetterGrid />
-        <Keyboard />
-      </div>
-    </div>
+    <AppContainer>
+      <Header />
+      <LetterGrid />
+      <Keyboard />
+    </AppContainer>
   )
 }
