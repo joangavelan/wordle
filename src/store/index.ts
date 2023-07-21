@@ -3,6 +3,7 @@ import { persist } from 'zustand/middleware'
 
 type Store = {
   correctWord: string
+  setGameWord: (word: string) => void
   guessedWords: Array<string | null>
   currentGuessWord: string
   isGameOver: boolean
@@ -13,7 +14,7 @@ type Store = {
 }
 
 const initialState = {
-  correctWord: 'state',
+  correctWord: '',
   guessedWords: Array(5).fill(null),
   currentGuessWord: '',
   isGameOver: false,
@@ -22,6 +23,7 @@ const initialState = {
 
 export const useGlobalStore = create<Store>((set) => ({
   ...initialState,
+  setGameWord: (word: string) => set(() => ({ correctWord: word })),
   resetGame: () => {
     set(initialState)
   },
@@ -54,12 +56,15 @@ type SessionData = {
   isNewUser: boolean
   numberOfPlays: number
   victories: number
+  wordsPlayed: string[]
+  addWordPlayed: (word: string) => void
   increaseNumberOfPlays: () => void
   increaseVictories: () => void
 }
 
 const initialSessionState = {
   isNewUser: true,
+  wordsPlayed: [],
   numberOfPlays: 0,
   victories: 0
 }
@@ -68,6 +73,7 @@ export const useSessionData = create(
   persist<SessionData>(
     (set) => ({
       ...initialSessionState,
+      addWordPlayed: (word) => set((state) => ({ wordsPlayed: [...state.wordsPlayed, word] })),
       increaseNumberOfPlays: () =>
         set((state) => ({ ...state, numberOfPlays: state.numberOfPlays + 1 })),
       increaseVictories: () => set((state) => ({ ...state, victories: state.victories + 1 }))

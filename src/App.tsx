@@ -2,10 +2,23 @@ import { Header } from '@/components/layout/header'
 import { Keyboard, LetterGrid } from './components/features'
 import * as React from 'react'
 import { useGlobalStore, useSessionData } from './store'
+import { words } from './utils'
 
 export default function App() {
-  const { correctWord, guessedWords, nextWordTimer, finishGame } = useGlobalStore()
-  const { increaseNumberOfPlays, increaseVictories } = useSessionData()
+  const { correctWord, setGameWord, guessedWords, nextWordTimer, finishGame } = useGlobalStore()
+  const { increaseNumberOfPlays, increaseVictories, wordsPlayed, addWordPlayed } = useSessionData()
+
+  React.useEffect(() => {
+    if (correctWord) return
+
+    // randomly pick a 5 letter word from the word list array that has not been played before and remove any tildes it might have
+    const validWords = words.filter((word) => !wordsPlayed.includes(word) && word.length === 5)
+    const validWord = validWords[Math.floor(Math.random() * validWords.length)]
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+
+    setGameWord(validWord)
+  }, [correctWord])
 
   React.useEffect(() => {
     const timer = setInterval(() => {
@@ -21,6 +34,7 @@ export default function App() {
     if (hasUserGuessedTheWord || hasUserUsedAllAttempts || hasTimerRunOut) {
       clearInterval(timer)
       increaseNumberOfPlays()
+      addWordPlayed(correctWord)
       finishGame()
 
       if (hasUserGuessedTheWord) {
